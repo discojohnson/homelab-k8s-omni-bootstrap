@@ -11,8 +11,10 @@ These steps are all loosely based on the official Sidero Labs instructions and a
 
 ## Overall Prereqs
 - Cloudflare manages a DNS zone, which will be used by Certbot to get valid SSL certificates across the lab
+- Authentik is already configured and accessible via DNS and has SSL configured
+- omni.whatever DNS entry is already created and points to the IP of the Omni VM
 
-## VM Prereqs
+## Omni VM Prereqs
 - Debian Trixie
 - Set a static IP or DHCP reservation
 
@@ -30,5 +32,10 @@ sudo apt-get update && sudo apt-get upgrade
 curl -fsSL https://test.docker.com -o test-docker.sh
 sudo sh test-docker.sh
 
+# grab this repo
+cd ~
+git pull https://github.com/discojohnson/homelab-k8s-omni-bootstrap
+cd homelab-k8s-omni-bootstrap/scripts
+sudo sh 00_prereqs.sh
 
 ```
