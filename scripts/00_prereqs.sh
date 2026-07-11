@@ -53,6 +53,18 @@ echo "..Sourcing ${OMNI_PRIVATE_ENV}"
 . ${OMNI_PRIVATE_ENV}
 
 #######
+####### authentik
+#######
+echo "Authentik metadata"
+
+# use this section if you have to specify an xml file instead of being able to use a URL; this happens when you can't use port 443 on the authentik server
+echo "..Checking if encrypted version already exists"
+if [ -e ../assets/authentik.metadata.xml.encrypted ]; then
+  echo "....It does, so decrypt it. Assuming password was fine though"
+  sh decrypt ../assets/authentik.metadata.xml.encrypted ${OMNI_ASSETS}/authentik.metadata.xml.decrypted
+fi
+
+#######
 ####### certbot
 #######
 echo "Certbot"
