@@ -5,13 +5,16 @@ Easy-to-run scripts for bootstrapping a Sidero Labs Omni controller
 
 These instructions are for deploying Omni as a pet (vs livestock), but at least it's a designer pet and can be recreated pretty quickly/easily. To follow the design principle of not allowing circular dependencies (Omni in a K8s cluster managed by Omni), Omni runs as its own VM; Omni runs in a container, but you will have to manage the OS. One could take a less manual approach and deploy via Helm chart, but the author isn't that smart yet.
 
-These steps are all loosely based on the official Sidero Labs instructions and a blog https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni
+These steps are all loosely based on sources from around the web:
+* Official Sidero Labs instructions
+* https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni
+* https://integrations.goauthentik.io/infrastructure/omni/ <-- Authentik/Omni instructions
 
 # Installation
 
 ## Overall Prereqs
-- Cloudflare manages a DNS zone, which will be used by Certbot to get valid SSL certificates across the lab
-- Authentik is already configured and accessible via DNS and has SSL configured
+- Cloudflare manages a DNS zone which will be used by Certbot, and your API token is to be put in /root/omni/cloudflare.ini.decrypted as a single line in the format of "dns_cloudflare_api_token = your_token"
+- Authentik is already deployed and accessible via DNS and has SSL configured
 - omni.whatever DNS entry is already created and points to the IP of the Omni VM
 
 ## Omni VM Prereqs
@@ -23,7 +26,7 @@ These steps are all loosely based on the official Sidero Labs instructions and a
 sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
 
 # install required packages
-sudo apt-get install certbot python3-certbot-dns-cloudflare git curl openssl
+sudo apt-get install -y git curl openssl
 
 # upgrade
 sudo apt-get update && sudo apt-get upgrade
@@ -34,7 +37,7 @@ sudo sh test-docker.sh
 
 # grab this repo
 cd ~
-git pull https://github.com/discojohnson/homelab-k8s-omni-bootstrap
+git clone https://github.com/discojohnson/homelab-k8s-omni-bootstrap
 cd homelab-k8s-omni-bootstrap/scripts
 sudo sh 00_prereqs.sh
 
