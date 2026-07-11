@@ -21,7 +21,7 @@ These steps are all loosely based on sources from around the web:
 - Debian Trixie
 - Set a static IP or DHCP reservation
 - Put you Cloudflare API token in assets/cloudflare.ini.template
-- Update assets/priate.env.template to use your own values
+- Update assets/private.env.template to use your own values
 
 ```text
 # remove the old junk
