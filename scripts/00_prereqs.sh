@@ -61,7 +61,7 @@ echo "Authentik metadata"
 echo "..Checking if encrypted version already exists"
 if [ -e ../assets/authentik.metadata.xml.encrypted ]; then
   echo "....It does, so decrypt it. Assuming password was fine though"
-  sh decrypt ../assets/authentik.metadata.xml.encrypted ${OMNI_ASSETS}/authentik.metadata.xml.decrypted
+  sh decrypt.sh ../assets/authentik.metadata.xml.encrypted ${OMNI_ASSETS}/authentik.metadata.xml.decrypted
 fi
 
 #######
