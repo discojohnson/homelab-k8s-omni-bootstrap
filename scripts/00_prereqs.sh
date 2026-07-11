@@ -66,7 +66,7 @@ if [ -e ../assets/cloudflare.ini.encrypted ]; then
   echo "....It does, so decrypt it. Assuming password was fine though"
   sh decrypt.sh ../assets/cloudflare.ini.encrypted ${CLOUDFLARE_INI}
 fi
-echo "..chmod 600 ${CLOUDFLARE_INI}
+echo "..chmod 600 ${CLOUDFLARE_INI}"
 chmod 600 ${CLOUDFLARE_INI}
 
 echo "..Call certbot command: certbot certonly --dns-cloudflare --dns-cloudflare-credentials ${CLOUDFLARE_INI} -d ${OMNI_DOMAIN_NAME} -n --agree-tos"
