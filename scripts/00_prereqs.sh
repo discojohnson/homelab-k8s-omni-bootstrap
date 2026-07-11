@@ -2,8 +2,8 @@ apt-get install -y certbot python3-certbot-dns-cloudflare git curl openssl gpg
 
 OMNI_ASSETS=~/omni
 ETCD_ENCRYPTION_KEY=${OMNI_ASSETS}/omni.asc.decrypted
-OMNI_ENV_TEMPLATE=${OMNI_ASSETS}/omni.env.original
-OMNI_COMPOSE_TEMPLATE=${OMNI_ASSETS}/compose.yaml.original
+OMNI_ENV_TEMPLATE=${OMNI_ASSETS}/omni.env.template
+OMNI_COMPOSE_TEMPLATE=${OMNI_ASSETS}/compose.yaml.template
 mkdir -p ${OMNI_ASSETS}
 
 if [ ! -e ${OMNI_ASSETS}/.password ]; then
@@ -28,17 +28,46 @@ curl https://raw.githubusercontent.com/siderolabs/omni/v${OMNI_VERSION}/deploy/c
 cp ../assets/omni.env ${OMNI_ASSETS}/omni.env
 cp ../assets/compose.yaml ${OMNI_ASSETS}/compose.yaml
 
-cp ../assets/private.env.template ${OMNI_ASSETS}/private.env.decrypted
+#######
+####### private environment overrides
+#######
+echo "Private Environment Overrides"
 
+OMNI_PRIVATE_ENV=${OMNI_ASSETS}/private.env.decrypted
+echo "..Copying template to ${OMNI_PRIVATE_ENV}"
+cp ../assets/private.env.template ${OMNI_PRIVATE_ENV}
+
+echo "..Checking if encrypted version already exists"
 if [ -e ../assets/private.env.encrypted ]; then
-  sh decrypt.sh ../assets/private.env.encrypted ${OMNI_ASSETS}/private.env.decrypted
-  . ${OMNI_ASSETS}/private.env.decrypted
+  echo "....It does, so decrypt it"
+  sh decrypt.sh ../assets/private.env.encrypted ${OMNI_PRIVATE_ENV}
+  echo "....Source it"
+  . ${OMNI_PRIVATE_ENV}
+  echo "....Check if OMNI_DECRYPTION_TEST is now set"
   if [ "${OMNI_DECRYPTION_TEST}" != "passed" ]; then
-    echo "Decryption test failed. The password is probably wrong"
+    echo "Decryption test failed. The password is probably wrong. Either delete ../assets/private.env.encrypted or fix your ${OMNI_ASSETS}/.password, then retry."
   fi
 fi
 
-if [ -e ../assets/cloudflare.ini.encrypted ]; then
-  sh decrypt.sh ../assets/cloudflare.ini.encrypted ${OMNI_ASSETS}/cloudflare.ini.decrypted
-fi
+echo "..Sourcing ${OMNI_PRIVATE_ENV}"
+. ${OMNI_PRIVATE_ENV}
 
+#######
+####### certbot
+#######
+echo "Certbot"
+
+CLOUDFLARE_INI=${OMNI_ASSETS}/cloudflare.ini.decrypted
+echo "..Copying template to ${CLOUDFLARE_INI}"
+cp ../assets/cloudflare.ini.template ${CLOUDFLARE_INI}
+
+echo "..Checking if encrypted version already exists"
+if [ -e ../assets/cloudflare.ini.encrypted ]; then
+  echo "....It does, so decrypt it. Assuming password was fine though"
+  sh decrypt.sh ../assets/cloudflare.ini.encrypted ${CLOUDFLARE_INI}
+fi
+echo "..chmod 600 ${CLOUDFLARE_INI}
+chmod 600 ${CLOUDFLARE_INI}
+
+echo "..Call certbot command: certbot certonly --dns-cloudflare --dns-cloudflare-credentials ${CLOUDFLARE_INI} -d ${OMNI_DOMAIN_NAME} -n --agree-tos"
+certbot certonly --dns-cloudflare --dns-cloudflare-credentials ${CLOUDFLARE_INI} -d ${OMNI_DOMAIN_NAME} -n --agree-tos
