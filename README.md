@@ -13,13 +13,15 @@ These steps are all loosely based on sources from around the web:
 # Installation
 
 ## Overall Prereqs
-- Cloudflare manages a DNS zone which will be used by Certbot, and your API token is to be put in /root/omni/cloudflare.ini.decrypted as a single line in the format of "dns_cloudflare_api_token = your_token"
+- Cloudflare manages a DNS zone which will be used by Certbot, and you'll need an API token with all the right permissions to use the DNS01 method
 - Authentik is already deployed and accessible via DNS and has SSL configured
 - omni.whatever DNS entry is already created and points to the IP of the Omni VM
 
 ## Omni VM Prereqs
 - Debian Trixie
 - Set a static IP or DHCP reservation
+- Put you Cloudflare API token in assets/cloudflare.ini.template
+- Update assets/priate.env.template to use your own values
 
 ```text
 # remove the old junk
