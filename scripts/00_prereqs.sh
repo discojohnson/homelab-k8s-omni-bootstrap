@@ -1,4 +1,4 @@
-apt-get install -y certbot python3-certbot-dns-cloudflare git curl openssl gpg
+apt-get install -y certbot python3-certbot-dns-cloudflare git curl openssl gpg build-essential procps file
 
 OMNI_ASSETS=~/omni
 ETCD_ENCRYPTION_KEY=${OMNI_ASSETS}/omni.asc.decrypted
