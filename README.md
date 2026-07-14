@@ -16,6 +16,7 @@ These steps are all loosely based on sources from around the web:
 - Cloudflare manages a DNS zone which will be used by Certbot, and you'll need an API token with all the right permissions to use the DNS01 method
 - Authentik is already deployed and accessible via DNS and has SSL configured
 - omni.whatever DNS entry is already created and points to the IP of the Omni VM
+- Brew is installed on the Omni VM (https://github.com/Homebrew/install)
 
 ## Omni VM Prereqs
 - Debian Trixie
