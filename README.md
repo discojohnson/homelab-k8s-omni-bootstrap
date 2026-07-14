@@ -24,6 +24,8 @@ These steps are all loosely based on sources from around the web:
 - Put you Cloudflare API token in assets/cloudflare.ini.template
 - Update assets/private.env.template to use your own values
 
+## Console work
+
 ```text
 # remove the old junk
 sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
@@ -47,3 +49,14 @@ cd homelab-k8s-omni-bootstrap/scripts
 sudo sh 00_prereqs.sh
 sudo sh 01_launch_omni.sh
 ```
+
+## Pre-configure Proxmox Provider
+Follow step 3 from this blog (https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni/#step-2-configure-the-omni-infrastructure-provider) to create a Provider named proxmox. Place the values in assets/proxmox_provider.env.template
+
+## Install omnictl
+
+```text
+brew install siderolabs/tap/sidero-tools
+```
+
+Next follow step 4 from this blog (https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni/#step-4-install-and-configure-omnictl) to do the configuration. This isn't worth me scripting yet.
