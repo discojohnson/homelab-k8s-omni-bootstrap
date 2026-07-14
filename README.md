@@ -40,7 +40,9 @@ sudo sh test-docker.sh
 # grab this repo
 cd ~
 git clone https://github.com/discojohnson/homelab-k8s-omni-bootstrap
+
+# run the prereqs and then launch Omni
 cd homelab-k8s-omni-bootstrap/scripts
 sudo sh 00_prereqs.sh
-
+sudo sh 01_launch_omni.sh
 ```
