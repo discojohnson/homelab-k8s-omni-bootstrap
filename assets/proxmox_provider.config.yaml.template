@@ -1,0 +1,6 @@
+proxmox:
+  url: "https://proxmox.domain:8006/api2/json"
+  insecureSkipVerify: true
+  tokenID: "proxmox-token-id"
+  tokenSecret: "proxmox-token-secret-value"
+
