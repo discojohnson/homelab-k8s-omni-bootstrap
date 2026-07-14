@@ -10,8 +10,8 @@ PROXMOX_ENV=${OMNI_ASSETS}/proxmox_provider.env.decrypted
 echo "..Copying template to ${PROXMOX_ENV}"
 cp ../assets/proxmox_provider.env.template ${PROXMOX_ENV}
 
-echo "..Sourcing ${OMNI_ASSETS}/proxmox_provider.env.decrypted"
-. ${OMNI_ASSETS}/proxmox_provider.env.decrypted
+echo "..Sourcing ${PROXMOX_ENV}"
+. ${PROXMOX_ENV}
 
 #######
 ####### proxmox_provider.config.yaml
