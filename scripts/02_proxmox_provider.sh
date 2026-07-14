@@ -12,6 +12,8 @@ cp ../assets/proxmox_provider.env.template ${PROXMOX_ENV}
 
 echo "..Sourcing ${PROXMOX_ENV}"
 . ${PROXMOX_ENV}
+export OMNI_API_ENDPOINT
+export OMNI_INFRA_PROVIDER_KEY
 
 #######
 ####### proxmox_provider.config.yaml
