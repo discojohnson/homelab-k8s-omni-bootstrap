@@ -12,4 +12,4 @@ export OMNI_WG_IP
 export OMNI_ADMIN_EMAIL
 
 echo "Launching via docker compose"
-docker compose -f ${OMNI_ASSETS}/compose.yaml --env-file ${OMNI_ASSETS}/omni.env up -d
+docker compose -f ${OMNI_ASSETS}/omni.compose.yaml --env-file ${OMNI_ASSETS}/omni.env up -d
