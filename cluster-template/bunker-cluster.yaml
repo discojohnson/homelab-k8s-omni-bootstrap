@@ -1,0 +1,46 @@
+kind: Cluster
+name: bunker
+kubernetes:
+  version: v1.36.2
+talos:
+  version: v1.13.5
+
+---
+kind: ControlPlane
+machineClass:
+  name: proxmox-control-plane
+  size: 1
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/qemu-guest-agent
+  - siderolabs/util-linux-tools
+patches:
+#  - name: crd-cleanup
+#    file: patches/crd-cleanup.yaml
+#  - name: crd-cleanup-2nd
+#    file: patches/crd-cleanup-2nd.yaml
+  - name: cilium
+    file: patches/cilium.yaml
+  - name: network
+    file: patches/network.yaml
+  - name: truenas-namespace
+    file: patches/truenas-csi.yaml
+---
+kind: Workers
+name: bedrock-connect
+machineClass:
+  name: proxmox-worker
+  size: 1
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/qemu-guest-agent
+  - siderolabs/util-linux-tools
+patches:
+  - name: cilium
+    file: patches/cilium.yaml
+  - name: network
+    file: patches/network.yaml
+  - name: truenas-namespace
+    file: patches/truenas-csi.yaml
+
+
