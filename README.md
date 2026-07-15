@@ -25,6 +25,7 @@ These steps are all loosely based on sources from around the web:
 - Authentik is already deployed and accessible via DNS and has SSL configured
 - omni.whatever DNS entry is already created and points to the IP of the Omni VM
 - Brew is installed on the Omni VM (https://github.com/Homebrew/install)
+- Run your own local DNS (Pihole, etc) as you'll need to create a bunch of DNS entries you probably don't need publicly nor do you want to manage local hosts files
 
 ## Omni VM Prereqs
 - Debian Trixie
