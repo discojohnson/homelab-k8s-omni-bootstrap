@@ -33,7 +33,7 @@ These steps are all loosely based on sources from around the web:
 - Put you Cloudflare API token in assets/cloudflare.ini.template
 - Update assets/private.env.template to use your own values
 
-## Console work
+## Omni
 
 ```text
 # remove the old junk
@@ -59,8 +59,14 @@ sudo sh 00_prereqs.sh
 sudo sh 01_launch_omni.sh
 ```
 
-## Pre-configure Proxmox Provider
-Follow step 3 from this blog (https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni/#step-2-configure-the-omni-infrastructure-provider) to create a Provider named proxmox. Place the values in assets/proxmox_provider.env.template
+## Proxmox Provider
+Follow step 3 from this blog (https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni/#step-2-configure-the-omni-infrastructure-provider) to create a Provider named proxmox. Place the values in assets/proxmox_provider.env.template file.
+Next update assets/proxmox_provider.config.yaml.template to include the URL for your proxmox cluster, as well as the tokenID and tokenSecret values for the API token you created which has permissions to deploy and destroy these clusters. Admin is probably fine for home users.
+
+Then run the script to put it together and deploy
+```text
+sudo sh 02_proxmox_provider.sh
+```
 
 ## Install omnictl
 
@@ -69,3 +75,14 @@ brew install siderolabs/tap/sidero-tools
 ```
 
 Next follow step 4 from this blog (https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni/#step-4-install-and-configure-omnictl) to do the configuration. This isn't worth me scripting yet. Basically, log in to Omni, download the omniconfig, and place it as ~/.talos/omni/config
+
+## Import Machine Classes
+
+Use machine-classes/control-plane.yaml.template to define how your control plane VMs should run. Repeat for worker.yaml.template for the worker nodes. Samples are included.
+
+## Import the machine classes
+
+```text
+omnictl apply -f control-plane.yaml
+omnictl apply -f worker.yaml
+```
