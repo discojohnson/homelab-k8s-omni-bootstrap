@@ -79,3 +79,10 @@ Next follow step 4 from this blog (https://andreivasiliu.com/need-for-speed-auto
 ## Import Machine Classes
 
 Use machine-classes/control-plane.yaml.template to define how your control plane VMs should run. Repeat for worker.yaml.template for the worker nodes. Samples are included.
+
+## Import the machine classes
+
+```text
+omnictl apply -f control-plane.yaml
+omnictl apply -f worker.yaml
+```
