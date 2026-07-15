@@ -1,9 +1,9 @@
 cluster:
   extraManifests:
-    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/external-snapshotter_crd_part_01.yaml
-    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/external-snapshotter_crd_part_02.yaml
-    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/external-snapshotter_crd_part_03.yaml
-    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/external-snapshotter_crd_part_04.yaml
-    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/external-snapshotter_crd_part_05.yaml
-    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/external-snapshotter_crd_part_06.yaml
-    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/truenas-csi-driver.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/cluster-template/patches/external-snapshotter_crd_part_01.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/cluster-template/patches/external-snapshotter_crd_part_02.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/cluster-template/patches/external-snapshotter_crd_part_03.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/cluster-template/patches/external-snapshotter_crd_part_04.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/cluster-template/patches/external-snapshotter_crd_part_05.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/cluster-template/patches/external-snapshotter_crd_part_06.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/cluster-template/patches/truenas-csi-driver.yaml
