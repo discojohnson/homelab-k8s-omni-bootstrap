@@ -1,0 +1,63 @@
+# omnictl cluster template sync -v -f k8s-dev-dhcp.yaml
+---
+kind: Cluster
+name: k8s-dev-dhcp
+labels:
+  cluster-id: "k8s-dev-dhcp"
+kubernetes:
+  version: v1.35.1
+talos:
+  version: v1.12.4
+patches:
+  - name: no-cni
+    file: patches/cni.yaml
+  - name: disable-kube-proxy
+    file: patches/disable-kube-proxy.yaml
+
+---
+kind: ControlPlane
+machineClass:
+  name: proxmox-control-plane
+  size: 1
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/nfsd
+  - siderolabs/qemu-guest-agent
+  - siderolabs/util-linux-tools
+patches:
+  - name: time
+    inline:
+      machine:
+        time:
+          servers:
+            - pool.ntp.org
+  - name: hostname
+    file: patches/delete-HostnameConfig.yaml
+
+---
+kind: Workers
+name: workers
+machineClass:
+  name: proxmox-worker
+  size: 3
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/nfsd
+  - siderolabs/qemu-guest-agent 
+  - siderolabs/util-linux-tools
+patches:
+  - name: worker-labels
+    inline:
+      machine:
+        nodeLabels:
+          node-role.kubernetes.io/worker: ""
+  - name: time
+    inline:
+      machine:
+        time:
+          servers:
+            - pool.ntp.org
+  - name: longhorn
+    file: patches/longhorn.yaml
+  - name: hostname
+    file: patches/delete-HostnameConfig.yaml
