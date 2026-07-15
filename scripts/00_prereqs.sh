@@ -3,7 +3,7 @@ apt-get install -y certbot python3-certbot-dns-cloudflare git curl openssl gpg b
 OMNI_ASSETS=~/omni
 ETCD_ENCRYPTION_KEY=${OMNI_ASSETS}/omni.asc.decrypted
 OMNI_ENV_TEMPLATE=${OMNI_ASSETS}/omni.env.template
-OMNI_COMPOSE_TEMPLATE=${OMNI_ASSETS}/compose.yaml.template
+OMNI_COMPOSE_TEMPLATE=${OMNI_ASSETS}/omni.compose.yaml.template
 mkdir -p ${OMNI_ASSETS}
 
 if [ ! -e ${OMNI_ASSETS}/.password ]; then
@@ -26,7 +26,7 @@ curl https://raw.githubusercontent.com/siderolabs/omni/v${OMNI_VERSION}/deploy/c
 curl https://raw.githubusercontent.com/siderolabs/omni/v${OMNI_VERSION}/deploy/compose/compose.yaml -o ${OMNI_COMPOSE_TEMPLATE}
 
 cp ../assets/omni.env ${OMNI_ASSETS}/omni.env
-cp ../assets/compose.yaml ${OMNI_ASSETS}/compose.yaml
+cp ../assets/omni.compose.yaml ${OMNI_ASSETS}/omni.compose.yaml
 
 #######
 ####### private environment overrides
