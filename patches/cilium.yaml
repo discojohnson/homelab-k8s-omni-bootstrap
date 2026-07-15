@@ -1,0 +1,9 @@
+cluster:
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true
+  extraManifests:
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/cilium_part_1_crds.yaml
+    - https://github.com/discojohnson/homelab-k8s-omni-bootstrap/raw/refs/heads/main/patches/cilium_part_2_install.yaml
