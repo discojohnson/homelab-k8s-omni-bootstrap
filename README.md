@@ -59,4 +59,4 @@ Follow step 3 from this blog (https://andreivasiliu.com/need-for-speed-automatin
 brew install siderolabs/tap/sidero-tools
 ```
 
-Next follow step 4 from this blog (https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni/#step-4-install-and-configure-omnictl) to do the configuration. This isn't worth me scripting yet.
+Next follow step 4 from this blog (https://andreivasiliu.com/need-for-speed-automating-proxmox-k8s-clusters-with-talos-omni/#step-4-install-and-configure-omnictl) to do the configuration. This isn't worth me scripting yet. Basically, log in to Omni, download the omniconfig, and place it as ~/.talos/omni/config
