@@ -83,6 +83,5 @@ Use machine-classes/control-plane.yaml.template to define how your control plane
 ## Import the machine classes
 
 ```text
-omnictl apply -f control-plane.yaml
-omnictl apply -f worker.yaml
+omnictl apply -f machine-classes/working/
 ```
