@@ -85,6 +85,17 @@ Use machine-classes/samples/control-plane.yaml.template to define how your contr
 omnictl apply -f machine-classes/working/
 ```
 
+## Install helm
+
+```text
+brew install helm
+```
+
+## Create your cluster
+```text
+omnictl cluster template sync -f cluster-template/your-cluster.yaml
+```
+
 ## Configure kubectl
 
 We need the proper .kube/config file, and using the downloaded version will not work if the VM you're running everything from does not run a GUI with a browser. Instead, have omnictl pull it down for you and then you'll authenticate in a separate browser.
