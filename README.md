@@ -92,9 +92,11 @@ brew install helm
 ```
 
 ## Create your cluster
+
 ```text
 omnictl cluster template sync -f cluster-template/your-cluster.yaml
 ```
+After a couple of minutes, it will have stalled thanks to not having a CNI installed. Complete the configuration by following the steps in https://github.com/discojohnson/homelab-k8s-argo-config/blob/main/_initial_setup/README.md which will get Cilium and ArgoCD going.
 
 ## Configure kubectl
 
@@ -102,18 +104,4 @@ We need the proper .kube/config file, and using the downloaded version will not 
 
 ```text
 omnictl kubeconfig --cluster bunker --grant-type=authcode-keyboard
-```
-
-## Install Cilium CLI
-
-This came directly from the official Cilium docs (https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/).
-
-```text
-CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
-CLI_ARCH=amd64
-if [ "$(uname -m)" = "aarch64" ]; then CLI_ARCH=arm64; fi
-curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
-sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
-sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
-rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 ```
