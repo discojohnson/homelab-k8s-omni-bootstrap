@@ -36,7 +36,7 @@ These steps are all loosely based on sources from around the web:
 
 ## Omni
 
-```text
+```bash
 # remove the old junk
 sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
 
@@ -65,13 +65,13 @@ Follow step 3 from this blog (https://andreivasiliu.com/need-for-speed-automatin
 Next update assets/proxmox_provider.config.yaml.template to include the URL for your proxmox cluster, as well as the tokenID and tokenSecret values for the API token you created which has permissions to deploy and destroy these clusters. Admin is probably fine for home users.
 
 Then run the script to put it together and deploy
-```text
+```bash
 sudo sh 02_proxmox_provider.sh
 ```
 
 ## Install omnictl
 
-```text
+```bash
 brew install siderolabs/tap/sidero-tools
 ```
 
@@ -81,19 +81,19 @@ Next follow step 4 from this blog (https://andreivasiliu.com/need-for-speed-auto
 
 Use machine-classes/samples/control-plane.yaml.template to define how your control plane VMs should run. Repeat for worker.yaml.template for the worker nodes. Place these modifications in the ../working/ directory so you can add them all at once with a single command
 
-```text
+```bash
 omnictl apply -f machine-classes/working/
 ```
 
 ## Install helm
 
-```text
+```bash
 brew install helm
 ```
 
 ## Create your cluster
 
-```text
+```bash
 omnictl cluster template sync -f cluster-template/your-cluster.yaml
 ```
 After a couple of minutes, it will have stalled thanks to not having a CNI installed. Complete the configuration by following the steps in https://github.com/discojohnson/homelab-k8s-argo-config/blob/main/_initial_setup/README.md which will get Cilium and ArgoCD going.
@@ -102,6 +102,6 @@ After a couple of minutes, it will have stalled thanks to not having a CNI insta
 
 We need the proper .kube/config file, and using the downloaded version will not work if the VM you're running everything from does not run a GUI with a browser. Instead, have omnictl pull it down for you and then you'll authenticate in a separate browser.
 
-```text
+```bash
 omnictl kubeconfig --cluster bunker --grant-type=authcode-keyboard
 ```
