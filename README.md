@@ -9,6 +9,7 @@ The technology stack used is
 * Proxmox
 * Sidero Labs' Omni + Talos Linux for K8s and its management
 * Authentik for SSO
+* Cilium 1.19.4 (initially)
 * TrueNAS' tns-csi driver to manage iSCSI volumes
 * Let's Encrypt for SSL certs via Certbot
 * Cloudflare for DNS-01 ACME challenges
@@ -78,10 +79,30 @@ Next follow step 4 from this blog (https://andreivasiliu.com/need-for-speed-auto
 
 ## Import Machine Classes
 
-Use machine-classes/control-plane.yaml.template to define how your control plane VMs should run. Repeat for worker.yaml.template for the worker nodes. Samples are included.
-
-## Import the machine classes
+Use machine-classes/samples/control-plane.yaml.template to define how your control plane VMs should run. Repeat for worker.yaml.template for the worker nodes. Place these modifications in the ../working/ directory so you can add them all at once with a single command
 
 ```text
 omnictl apply -f machine-classes/working/
+```
+
+## Configure kubectl
+
+We need the proper .kube/config file, and using the downloaded version will not work if the VM you're running everything from does not run a GUI with a browser. Instead, have omnictl pull it down for you and then you'll authenticate in a separate browser.
+
+```text
+omnictl kubeconfig --cluster bunker --grant-type=authcode-keyboard
+```
+
+## Install Cilium CLI
+
+This came directly from the official Cilium docs (https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/).
+
+```text
+CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
+CLI_ARCH=amd64
+if [ "$(uname -m)" = "aarch64" ]; then CLI_ARCH=arm64; fi
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
+sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
+sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
+rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 ```
